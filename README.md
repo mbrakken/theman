@@ -1,2 +1,2 @@
-theMAN
+the.M.A.N.
 ======
