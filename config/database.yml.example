@@ -1,0 +1,16 @@
+common: &COMMON
+  adapter: postgresql
+  encoding: unicode
+  pool: 8
+  username:
+  password:
+  min_messages: warning
+
+development:
+  <<: *COMMON
+  database: the_man_development
+
+test: &TEST
+  <<: *COMMON
+  database: the_man_test<%= ENV['TEST_ENV_NUMBER'] %>
+  log_level: info

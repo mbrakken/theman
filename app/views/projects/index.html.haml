@@ -1,0 +1,12 @@
+- if current_user
+  .row
+    %h2.red-banner Your Projects
+    .group-of-projects.clearfix
+      - @ranks.each do |rank|
+        = render 'project_list', project: rank.project, rank: rank
+- else
+  .row
+    %h2.red-banner Projects on the Mutual Aid Network
+    .group-of-projects.clearfix
+      - @projects.order("updated_at asc").each do |project|
+        = render 'project_list', :project => project

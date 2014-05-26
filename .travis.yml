@@ -1,0 +1,10 @@
+language: ruby
+rvm:
+  - 2.1.1
+before_script:
+  - cp config/database.travis.yml config/database.yml
+  - psql -c 'create database the_man_test' -U postgres
+notifications:
+  email: false
+services:
+  - redis-server

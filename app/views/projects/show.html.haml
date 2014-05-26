@@ -1,0 +1,54 @@
+- content_for(:head) do
+  %meta{content: "#{@project.title}", name: "twitter:title"}
+  - if @project.creator && @project.creator.twitter_identity
+    %meta{content: "@#{@project.creator.twitter_identity.info['nickname']}", name: "twitter:creator"}
+  %meta{content: "#{@project.try(:description)}", name: "twitter:description"}
+
+.row.top-section
+  %h1.event-page-header
+    = @project.title
+  - if current_user && ( current_user.created_projects.include?(@project) || current_user.hosted_projects.include?(@project) || current_user.admin? )
+    .new-event-action.clearfix
+      .edit
+        = link_to "Edit", edit_project_path, class: 'btn btn-default btn-lg'
+.section-divider
+  %hr
+.row
+  #event-left.col-xs-12.col-md-8
+    .the-event.clearfix
+      - if @project.organization
+        .event-organization
+          %p
+            Presented by
+            = @project.organization.name
+      - if @project.description
+        .event-description
+          %p
+            =simple_format h auto_link(@project.description).html_safe
+      .actions
+        - if current_user && current_user.amplified?(@project)
+          .amped
+            %span.text Amped
+            = image_tag('amp.png', title: "Amplified", width: "36px", height: "35px")
+        - else
+          = link_to amps_path(project_id: @project.id), method: :post do
+            .amp
+              %span.text Amplify
+              = image_tag('amped.png', title: "Amplify", width: "36px", height: "35px")
+  #event-right.col-xs-12.col-md-4
+    .event-details
+      .event-url
+        = link_to @project.url, @project.url
+      - if @project.hosts.any?
+        .hosts
+          %h3 POSTED BY
+          %p
+            - @project.hosts.each do |user|
+              = user.name
+      - if @project.attendees.any?
+        .attendees
+          %h3 PARTICIPANTS
+          %p
+            - @project.attendees.each do |user|
+              = user.name
+              |

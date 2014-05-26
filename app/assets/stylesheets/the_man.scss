@@ -1,0 +1,125 @@
+@import 'bootstrap';
+@import 'bootstrap-datetimepicker';
+@import 'defaults';
+
+// Front page content
+
+.field_with_errors {
+  @extend .has-error;
+}
+
+
+body.home.index {
+  background-image: asset-url('madison.jpg');
+  background-repeat: no-repeat;
+  background-size:100%;
+  background-color: rgba(56, 73, 119,1);
+  nav {
+  }
+  .home-bg {
+    margin-top: 0;
+    margin-top: 1em;
+    color: $white;
+    @include box-sizing;
+    .top-content {
+      @include box-sizing;
+      padding: 0 2em;
+      margin-bottom: 2em;
+      h2 {
+        color: $white;
+        font-size: 36px;
+        margin-top: 0;
+      }
+    }
+    p {
+      color: $white;
+      font-size: 1.3em;
+    }
+    .left-content,
+    .right-content {
+      @include box-sizing;
+      padding: 0 2em;
+      margin-bottom: 2em;
+    }
+    .intro-copy {
+      background-color: rgba(55,55,55,0.4);
+      padding: 1em;
+    }
+  }
+}
+
+
+// Support & contribute page
+
+body.support {
+  h2 {
+    font-size: 22px;
+  }
+  .collection-of-logos,
+  .support-forms {
+    border-top: 10px solid $dark-gray;
+    padding: 1em;
+    background-color: $light-gray;
+    @include box-sizing;
+    box-shadow: 1px 2px 3px rgb(204,204,204);
+    margin: 1em 0;
+    .row {
+      margin: 1em 0;
+    }
+    .s-logo {
+      height: 80px;
+      line-height: 80px;
+      text-align: center;
+      a {
+        display: block;
+        &:hover {
+          box-shadow: 1px 1px 3px rgba(10,10,10,0.2);
+        }
+      }
+      img {
+        vertical-align: middle;
+        max-width:120px;
+        max-height:65px;
+        margin: auto;
+        padding: 0;
+      }
+    }
+  }
+  form#paypal {
+    text-align: center;
+    margin-top: 1em;
+    margin-bottom: 3em;
+    table {
+      width :100%;
+      font-size: 1.5em;
+      border: none;
+      tbody {
+        tr {
+          background: none;
+        }
+        td {
+          padding: 0;
+        }
+      }
+    }
+    input[name="submit"] {
+      margin-top: 1em;
+    }
+  }
+  #contribution_email {
+    border-radius: 4px 0 0 4px;
+  }
+  span.input-group-btn {
+    vertical-align: bottom;
+  }
+}
+
+footer {
+  text-align: center;
+  padding-bottom: 15px;
+}
+
+
+@import 'identity_cards';
+@import 'nav';
+@import 'events';

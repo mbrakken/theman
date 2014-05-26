@@ -1,0 +1,140 @@
+// Social Media Buttons
+
+.identity {
+  color: white;
+  position: relative;
+  a {
+    color:white;
+  }
+  .image {
+    float: left;
+    padding-right:10px;
+    img {
+      width: 65px;
+      height: 65px;
+    }
+  }
+  .names {
+    padding: 0px;
+    .name {
+      font-size: 1.2em;
+      padding: 3px 0;
+    }
+    .nickname {
+      padding: 3px 3px;
+    }
+  }
+  input[type=radio] {
+    position: absolute;
+    left: 3px;
+    bottom: 3px;
+    margin: 0;
+  }
+
+  .disconnect {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    background-image: asset-url("toggle-2.png");
+    background-repeat: no-repeat;
+    background-size: 32px auto;
+    height: 15px;
+    width: 32px;
+  }
+  .icon {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+  }
+}
+
+.social-media {
+  padding: 20px 0px;
+  border-radius: 0;
+  color: white;
+  &:hover,
+  &:active {
+    box-shadow: 0 0 5px 1px #ccc;
+  }
+}
+
+.twitter {
+  background-color: #00aced;
+  background-image: asset-url("smi_twitter-logo.png");
+  background-repeat: no-repeat;
+  background-position: 4px 13px;
+  &:active {
+    background-image: asset-url("smi_twitter-logo.png");
+  }
+}
+
+.facebook {
+  background-color: #3b5998;
+  background-image: asset-url("smi_fb-logo.png");
+  background-repeat: no-repeat;
+  background-position: 3px 12px;
+  &:active {
+    background-image: asset-url("smi_fb-logo.png");
+  }
+}
+
+.linkedin {
+  background-color: #007bb6;
+  background-image: asset-url("smi_linkedin-logo.png");
+  background-repeat: no-repeat;
+  background-position: 5px 12px;
+  &:active {
+    background-image: asset-url("smi_linkedin-logo.png");
+  }
+}
+
+.googleplus {
+  background-color: #dd4b39;
+  background-image: asset-url("smi_gplus-logo.png");
+  background-repeat: no-repeat;
+  background-position: 7px 13px;
+  &:active {
+    background-image: asset-url("smi_gplus-logo.png");
+  }
+}
+.default-identity {
+  background-color: #595c5c;
+  background-image: asset-url("smi_madi-logo.png");
+  background-repeat: no-repeat;
+  background-position: 7px 13px;
+  font-size: 0.8em;
+  position: relative;
+  .name-name, .number-number {
+    display: inline;
+    font-size: 1.3em;
+  }
+  .number {
+    margin-top: 7px;
+  }
+  .icon {
+    right: 4px;
+    bottom: 4px;
+  }
+  .edit-defaults,
+  .save {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+  }
+  .email {
+    position: absolute;
+    top: 0px;
+    left: 75px;
+  }
+  .mobile_num {
+    position: absolute;
+    bottom: 10px;
+    left: 75px;
+  }
+  input[type='tel'],
+  input[type='email'] {
+    margin: 0.5em 0 0;
+    height: 2em;
+    width: 250px;
+  }
+}

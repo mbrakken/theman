@@ -1,0 +1,24 @@
+.event-wrapper.col-md-4
+  .an-event
+    .event-info
+      .title
+        %h3
+          = link_to project.title, project
+      - if project.description.present?
+        .description
+          = truncate project.description, length: 150
+      - if defined?(rank)
+        - rank.associated_follows.each do |user|
+          = image_tag user.avatar, title: user.name, height: '30px'
+      .actions
+        - if current_user && current_user.amplified?(project)
+          .amped
+            %span.text
+              Amped
+            = image_tag('amp.png', title: "Amplified", width: "36px", height: "35px")
+        - else
+          = link_to amps_path(project_id: project.id), method: :post do
+            .amp
+              %span.text
+                Amplify
+              = image_tag('amped.png', title: "Amplify", width: "36px", height: "35px")

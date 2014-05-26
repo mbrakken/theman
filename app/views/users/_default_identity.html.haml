@@ -1,0 +1,23 @@
+.default-card-info.clearfix
+  .image.default-avatar
+    = image_tag "#{user.avatar}"
+  .edit-defaults
+    = link_to 'edit', '#', class: 'edit-defaults'
+  .names
+    .name
+      .name-name
+        = user.email.truncate(17)
+    .number
+      - if user.mobile_num.present?
+        .number-number
+          = user.mobile_num
+      - else
+        = link_to 'add mobile number', '#', class: 'edit-default-mobile'
+  .icon
+    = image_tag "smi_madi-logo.png", title: "MADi"
+  .email.hidden
+    = f.email_field :email, placholder: "Email Address"
+  .mobile_num.hidden
+    = f.telephone_field :mobile_num, placeholder: "Phone Number"
+  .save.hidden
+    = f.submit "Save", class: 'btn btn-xs'

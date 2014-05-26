@@ -1,0 +1,24 @@
+= form_for project, :html => {:class => 'form-horizontal'} do |f|
+  - if project.errors.any?
+    .alert.alert-danger
+      #{pluralize(project.errors.count, "error")} prohibited this project from being saved:
+      %ul
+        - project.errors.full_messages.each do |msg|
+          %li= msg
+
+  .form-group
+    = f.label :title, class: 'col-sm-3 control-label'
+    .col-sm-9
+      = f.text_field :title, class: 'col-sm-9 form-control', required: true
+  .form-group
+    = f.label :description, class: 'col-sm-3 control-label'
+    .col-sm-9
+      = f.text_area :description, rows: "3", class: 'form-control'
+      %span.help-block URLs which include the protocol (eg. http://) and email address will be converted into links.
+  .form-group
+    = label_tag :organization, "Organization", class: 'col-sm-3 control-label'
+    .col-sm-9
+      = f.autocomplete_field :organization_name, autocomplete_organization_name_organizations_path, class: 'form-control'
+  .form-group
+    .col-sm-3.col-sm-offset-9
+      = f.submit 'Save Project', class: 'btn btn-primary btn-lg btn-block'

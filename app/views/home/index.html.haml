@@ -1,0 +1,19 @@
+.row.home-bg
+  .top-content.col-sm-12
+    %h2.subheader Discover Madison Innovation
+  .col-sm-7.left-content
+    .intro-copy
+      %p
+        Innovation weaves together the future of Madison's businesses, and we've all got connections to it. On MADi, you can find yours. MADi is an open source community network that uses your existing social connections to identify and show you the Greater Madison tech and entrepreneurship events you need to know about.
+      %p
+        Over time, and as you connect with additional networks, MADi's recommendations will improve.
+      %p
+        Thanks,
+        %br
+        The MADi Team
+  .col-sm-5.right-content
+    - if current_user
+      = form_for current_user do |f|
+        = render "shared/social_buttons", f: f
+    - else
+      = render "shared/social_buttons"

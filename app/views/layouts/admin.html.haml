@@ -1,0 +1,37 @@
+!!!
+/ paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/
+/[if lt IE 7 ] <html class="ie6" lang="en">
+/[if IE 7 ] <html class="ie7" lang="en">
+/[if IE 8 ] <html class="ie8" lang="en">
+/ [if (gte IE 9)|!(IE)]><!
+%html{lang: "en"}
+  / <![endif]
+  %head
+    %meta{charset: "utf-8"}/
+    / Uncomment to make IE8 render like IE7
+    / <meta http-equiv="X-UA-Compatible" content="IE=7" />
+    / Set the viewport width to device width for mobile
+    %meta{content: "width=device-width, initial-scale=1.0", name: "viewport"}/
+    %title= content_for?(:title) ? yield(:title) : "MADi | Admin"
+    = stylesheet_link_tag "admin"
+    :plain
+      <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=false"></script
+    = csrf_meta_tags
+    = yield :head
+  %body{ class: "#{controller_name} #{action_name}" }
+    %nav.navbar.navbar-default.navbar-static-top{role: "navigation"}
+      .navbar-header
+        = link_to 'Madi Admin', admin_path, class: 'navbar-brand'
+      %ul.nav.navbar-nav
+        %li= link_to 'Events', admin_events_path
+        %li= link_to 'New Event', new_admin_event_path
+        %li= link_to 'Event Feeds', admin_event_feeds_path
+        %li= link_to 'Back to Madi', root_path
+    .container
+      - flash.each do |name, msg|
+        - if msg.is_a?(String)
+          %div{class: "alert alert-#{name.to_s == 'notice' ? 'success' : 'danger'}"}
+            %button.close{"aria-hidden" => "true", "data-dismiss" => "alert", type: "button"} ×
+            = content_tag :div, msg, :id => "flash_#{name}"
+      = yield
+    = javascript_include_tag "admin"

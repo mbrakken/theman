@@ -1,0 +1,28 @@
+- content_for(:head) do
+  = javascript_include_tag "http://maps.googleapis.com/maps/api/js?libraries=places&sensor=false"
+
+.row
+  #event-form.col-sm-6.col-sm-offset-3
+    %h1 Add an Event
+    = render 'form', event: @event
+
+- content_for :javascript do
+  :javascript
+    $('#import-event').on('click', function(){
+      var url = $('#import-url').val();
+      button = this
+      $(button).prop('disabled', true)
+      $(button).text('Importing...')
+      $.ajax({
+        url: '/events/import?url='+url,
+        type: 'GET',
+        dataType: 'json'
+      }).done(function(data){
+        Object.keys(data).forEach(function(key){
+          $('#event_'+key).val(data[key]);
+        });
+        $('#event_url').val(url)
+        $(button).prop('disabled', false)
+        $(button).text('Import')
+      });
+    });
