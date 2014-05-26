@@ -1,6 +1,6 @@
 .row
   .col-sm-12.col-md-6.supporters
-    %h2 These people and organizations support MADi
+    %h2 These people and organizations support the M.A.N.
     .collection-of-logos
       .row
         .col-sm-3.col-md-4
@@ -11,20 +11,16 @@
             = link_to image_tag("murfie_pink.png", title: "Murfie"), "http://murfie.com"
         .col-sm-3.col-md-4
           .s-logo
-            = link_to image_tag("madisonium.png", title: "Madisonium"), "http://madisonium.org"
-      .row
-        .col-sm-3.col-md-4
-          .s-logo
-            = link_to image_tag("gmcc.png", title: "Greater Madison Chamber of Commerce"), "http://greatermadisonchamber.com/"
+            = link_to image_tag("dctb-logo.gif", title: "Dane County TimeBank"), "http://danecountytimebank.org"
   .col-sm-12.col-md-6.support-contrib
-    %h2 Please support MADi development
+    %h2 Please support the M.A.N's Development
     .support-forms
       .support
         = render "paypal_button"
       .contribute
         = form_for :contribution, url: contributions_path, method: :post do |f|
           .form-group
-            = f.label :note, 'Contribute to MADi development'
+            = f.label :note, 'Contribute to the M.A.N\'s development'
             = f.text_area :note, class: 'form-control'
 
           .input-group
