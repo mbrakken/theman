@@ -1,2 +1,5 @@
-%h1 Users#show
+- if @user.avatar
+  .profile-imate
+    = image_tag @user.avatar
+%h1= @user.name
 %p= @user.email

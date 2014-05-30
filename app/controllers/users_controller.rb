@@ -1,14 +1,18 @@
 class UsersController < ApplicationController
+  before_action :authorize_user!, only: :edit
+  before_action :set_user, only: [:show, :edit, :update, :twitter_email]
+
   def show
-    @user = current_user
   end
 
   def twitter_email
-    @user = current_user
+  end
+
+  def edit
+
   end
 
   def update
-    @user = current_user
     @user.update_attributes(user_params)
     respond_to do |format|
       if session[:pre_authorization_page]
@@ -21,6 +25,10 @@ class UsersController < ApplicationController
   end
 
   private
+
+  def set_user
+    @user = current_user
+  end
 
   def user_params
     params.require(:user).permit(:email, :avatar, :mobile_num, :default_identity_id)
