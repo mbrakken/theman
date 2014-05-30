@@ -3,3 +3,8 @@
     = image_tag @user.avatar
 %h1= @user.name
 %p= @user.email
+
+- if @user.offer_tags.any?
+  Tags:
+  = raw @user.offer_tags.map(&:name).map { |t| link_to t, offer_tag_path(t) }.join(', ')
+

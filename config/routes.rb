@@ -42,6 +42,8 @@ TheMan::Application.routes.draw do
     resources :events
   end
 
+  get 'tags/:offer_tag', to: 'user#index', as: :offer_tag
+
   get '/support', to: 'content#support'
   match '/auth/:provider/callback', to: 'sessions#create', via: [:get, :post]
   match '/logout', to: 'sessions#destroy', via: [:get, :destroy]

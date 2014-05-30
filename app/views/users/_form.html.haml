@@ -1,0 +1,31 @@
+= form_for user, :html => {:class => 'form-horizontal'} do |f|
+  - if user.errors.any?
+    .alert.alert-danger
+      #{pluralize(user.errors.count, "error")} prevented us from updating your profile:
+      %ul
+        - user.errors.full_messages.each do |msg|
+          %li= msg
+  .form-group
+    = f.label :name, "Name", class: 'col-sm-3 control-label'
+    .col-sm-9.form-inline
+      = f.text_field :name, class: 'form-control'
+  .form-group
+    = f.label :email, "Email address", class: 'col-sm-3 control-label'
+    .col-sm-9.form-inline
+      = f.email_field :email, class: 'form-control'
+  .form-group
+    = f.label :offer_tag_list, "What do you provide?", class: 'col-sm-3 control-label'
+    .col-sm-9.form-inline
+      = f.text_area :offer_tag_list, class: 'form-control'
+      %span.help-block URLs which include the protocol (eg. http://) and email address will be converted into links.
+  .form-group
+    = f.label :city, "City", class: 'col-sm-3 control-label'
+    .col-sm-9.form-inline
+      = f.text_field :city, class: 'form-control'
+  .form-group
+    = f.label :state, "State", class: 'col-sm-3 control-label'
+    .col-sm-9.form-inline
+      = f.text_field :state, class: 'form-control'
+  .form-group
+    .col-sm-3.col-sm-offset-9
+      = f.submit "Update", class: 'btn btn-primary btn-lg btn-block'
