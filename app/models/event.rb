@@ -1,6 +1,4 @@
 class Event < ActiveRecord::Base
-  extend TimeSplitter::Accessors
-  split_accessor :start_time, :end_time, default: -> { DateTime.current }
 
   extend FriendlyId
   friendly_id :slug_candidates, use: [:slugged, :finders]
