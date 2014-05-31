@@ -1,8 +1,9 @@
 class UsersController < ApplicationController
   before_action :authorize_user!, only: :edit
-  before_action :set_user, only: [:show, :edit, :update, :twitter_email]
+  before_action :set_user, only: [:edit, :update, :twitter_email]
 
   def show
+    @user = User.find(params[:id])
   end
 
   def twitter_email
@@ -10,6 +11,14 @@ class UsersController < ApplicationController
 
   def edit
 
+  end
+
+  def index
+    if params[:offer_tag]
+      @users = User.tagged_with(params[:offer_tag])
+    else
+      @users = User.all
+    end
   end
 
   def update

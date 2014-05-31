@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140530203429) do
+ActiveRecord::Schema.define(version: 20140531072327) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -125,22 +125,6 @@ ActiveRecord::Schema.define(version: 20140530203429) do
 
   add_index "identities", ["user_id"], name: "index_identities_on_user_id", using: :btree
 
-  create_table "offer_taggings", force: true do |t|
-    t.integer  "offer_tag_id"
-    t.integer  "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "offer_taggings", ["offer_tag_id"], name: "index_offer_taggings_on_offer_tag_id", using: :btree
-  add_index "offer_taggings", ["user_id"], name: "index_offer_taggings_on_user_id", using: :btree
-
-  create_table "offer_tags", force: true do |t|
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "org_administrations", force: true do |t|
     t.integer  "user_id"
     t.integer  "organization_id"
@@ -214,6 +198,25 @@ ActiveRecord::Schema.define(version: 20140530203429) do
   add_index "registrations", ["project_id"], name: "index_registrations_on_project_id", using: :btree
   add_index "registrations", ["user_id"], name: "index_registrations_on_user_id", using: :btree
 
+  create_table "taggings", force: true do |t|
+    t.integer  "tag_id"
+    t.integer  "taggable_id"
+    t.string   "taggable_type"
+    t.integer  "tagger_id"
+    t.string   "tagger_type"
+    t.string   "context",       limit: 128
+    t.datetime "created_at"
+  end
+
+  add_index "taggings", ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true, using: :btree
+
+  create_table "tags", force: true do |t|
+    t.string  "name"
+    t.integer "taggings_count", default: 0
+  end
+
+  add_index "tags", ["name"], name: "index_tags_on_name", unique: true, using: :btree
+
   create_table "users", force: true do |t|
     t.string   "email"
     t.string   "mobile_num"
@@ -231,6 +234,7 @@ ActiveRecord::Schema.define(version: 20140530203429) do
     t.text     "pulled_events"
     t.string   "payment_token"
     t.boolean  "admin",               default: false
+    t.text     "about"
   end
 
   add_index "users", ["default_identity_id"], name: "index_users_on_default_identity_id", using: :btree

@@ -4,7 +4,11 @@
 %h1= @user.name
 %p= @user.email
 
-- if @user.offer_tags.any?
-  Tags:
-  = raw @user.offer_tags.map(&:name).map { |t| link_to t, offer_tag_path(t) }.join(', ')
+- if @user.local_offers.any?
+  Offered locally:
+  = raw @user.local_offers.map { |t| link_to t, offer_tag_path(t) }.join(', ')
+
+- if @user.global_offers.any?
+  Offered anywhere:
+  = raw @user.global_offers.map { |t| link_to t, offer_tag_path(t) }.join(', ')
 

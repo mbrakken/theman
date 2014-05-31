@@ -6,7 +6,7 @@ TheMan::Application.routes.draw do
 
   mount Sidekiq::Web => '/sidekiq', :constraints => AdminConstraint.new
 
-  resources :users, only: [:show, :update, :edit] do
+  resources :users, only: [:show, :update, :edit, :index] do
     member do
       get :twitter_email
     end

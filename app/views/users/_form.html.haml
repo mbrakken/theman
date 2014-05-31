@@ -14,10 +14,19 @@
     .col-sm-9.form-inline
       = f.email_field :email, class: 'form-control'
   .form-group
-    = f.label :offer_tag_list, "What do you provide?", class: 'col-sm-3 control-label'
+    = f.label :about, "About", class: 'col-sm-3 control-label'
     .col-sm-9.form-inline
-      = f.text_area :offer_tag_list, class: 'form-control'
-      %span.help-block URLs which include the protocol (eg. http://) and email address will be converted into links.
+      = f.text_area :about, class: 'form-control'
+  .form-group
+    = f.label :local_offer_list, "What do you provide locally?", class: 'col-sm-3 control-label'
+    .col-sm-9.form-inline
+      = f.text_area :local_offer_list, class: 'form-control'
+      %span.help-block help text.
+  .form-group
+    = f.label :global_offer_list, "What do you provide anywhere?", class: 'col-sm-3 control-label'
+    .col-sm-9.form-inline
+      = f.text_area :global_offer_list, class: 'form-control'
+      %span.help-block help text.
   .form-group
     = f.label :city, "City", class: 'col-sm-3 control-label'
     .col-sm-9.form-inline
