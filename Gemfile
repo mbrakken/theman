@@ -26,7 +26,6 @@ gem 'american_date'
 gem 'httparty'
 gem 'nokogiri'
 gem 'rails3-jquery-autocomplete'
-gem 'icalendar'
 gem 'twitter', "~> 4.8.1"
 gem "koala"
 gem 'linkedin'
@@ -36,10 +35,8 @@ gem 'sidekiq-failures'
 gem 'coveralls', require: false
 gem 'bootstrap-sass'
 gem 'rails_autolink'
-gem 'momentjs-rails', '~> 2.5.0'
-gem 'bootstrap3-datetimepicker-rails', '~> 3.0.0'
-gem "time_splitter"
 gem "friendly_id"
+gem 'acts-as-taggable-on'
 
 
 # Don't require so Object does not get all Sintra DSL methods

@@ -1,7 +1,7 @@
-$('.date-picker').datetimepicker({pickTime: false});
+# $('.date-picker').datetimepicker({pickTime: false});
 
-$('#event_start_time_date').on 'change', ()->
-    $('#event_end_time_date').val($(this).val())
+# $('#event_start_time_date').on 'change', ()->
+#     $('#event_end_time_date').val($(this).val())
 
 if $('body').hasClass('events')
   if $('body').hasClass('new')

@@ -13,9 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery.ui.autocomplete
-//= require moment
 //= require autocomplete-rails
 //= require bootstrap
-//= require bootstrap-datetimepicker
 //= require users
 //= require events
