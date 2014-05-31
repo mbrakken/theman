@@ -1,4 +1,8 @@
 class User < ActiveRecord::Base
+
+  acts_as_ordered_taggable
+  acts_as_ordered_taggable_on :local_offers, :global_offers
+
   has_many :registrations
   has_many :hostings
   has_many :amps
@@ -35,9 +39,6 @@ class User < ActiveRecord::Base
   has_one :google_identity, -> { where provider: 'google' }, class_name: 'Identity'
   belongs_to :default_identity, class_name: 'Identity'
 
-  has_many :offer_taggings
-  has_many :offer_tags, through: :offer_taggings
-
   before_update :update_man_identity
   after_create :update_ranks
 
@@ -62,25 +63,6 @@ class User < ActiveRecord::Base
 
   def update_ranks
     UserRanksUpdater.perform_async(self.id)
-  end
-
-  def self.tagged_with(name)
-    OfferTag.find_by_name!(name).users
-  end
-
-  def self.tag_counts
-    OfferTag.select("offer_tags.*, count(offer_taggings.offer_tag_id) as count").
-      joins(:offer_taggings).group("offer_taggings.offer_tag_id")
-  end
-
-  def offer_tag_list
-    offer_tags.map(&:name).join(", ")
-  end
-
-  def offer_tag_list=(names)
-    self.offer_tags = names.split(",").map do |n|
-      OfferTag.where(name: n.strip).first_or_create!
-    end
   end
 
   def following_projects
