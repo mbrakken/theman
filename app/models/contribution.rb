@@ -1,19 +1,18 @@
 class Contribution < ActiveRecord::Base
 
   belongs_to :project
-  belongs_to :contributor, class_name: "User"
+  belongs_to :user
 
-  validates_presence_of :note, only: [:create, :edit, :update]
+  # validates_presence_of :note, only: [:create, :edit, :update]
+
+  delegate :email, to: :user, prefix: true
+
+  delegate :update_ranks, to: :project
+  after_commit :update_ranks
 
   scope :proposed, -> { where(state: 'proposed') }
   scope :accepted, -> { where(state: 'accepted') }
   scope :closed, -> { where(state: 'closed') }
   scope :global, -> { where(global: !nil) }
-
-  after_create :update_ranks
-
-  def update_ranks
-
-  end
 
 end

@@ -1,8 +1,14 @@
 - if current_user
+  - if !@projects.empty?
+    .row
+      %h2.red-banner Your Projects
+      .group-of-projects.clearfix
+        - @projects.each do |project|
+          = render 'project_list', project: project
   .row
-    %h2.red-banner Your Projects
+    %h2.red-banner Suggested Projects
     .group-of-projects.clearfix
-      - @ranks.each do |rank|
+      - @ranked_projects.each do |rank|
         = render 'project_list', project: rank.project, rank: rank
 - else
   .row

@@ -4,12 +4,10 @@ class Project < ActiveRecord::Base
   friendly_id :slug_candidates, use: [:slugged, :finders]
 
   has_many :hostings
-  has_many :registrations
   has_many :contributions
   has_many :amps
   belongs_to :organization
   has_many :hosts, -> { distinct }, through: :hostings, source: :user
-  has_many :attendees, -> { distinct }, through: :registrations, source: :user
   has_many :contributors, -> { distinct }, through: :contributions, source: :user
   has_many :amplifiers, -> { distinct }, through: :amps, source: :user
   has_many :ranks
@@ -28,7 +26,7 @@ class Project < ActiveRecord::Base
   end
 
   def update_ranks
-    EventRanksUpdater.perform_async(self.id)
+    ProjectRanksUpdater.perform_async(self.id)
   end
 
   def slug_candidates

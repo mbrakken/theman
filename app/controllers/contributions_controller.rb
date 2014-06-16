@@ -1,6 +1,8 @@
 class ContributionsController < ApplicationController
-  before_action :authorize_user!, only: [:new, :create, :edit, :update]
-  before_action :set_contribution, only: [:show, :edit, :update, :destroy, :retract]
+  before_filter :authorize_user!, only: [:new, :create, :edit, :update]
+  before_filter :set_contribution, only: [:show]
+  before_filter :set_user_contribution, only: [:edit, :update, :destroy, :retract]
+  before_filter :set_project
 
   def new
     @contribution = @project.contributions.new
@@ -14,7 +16,6 @@ class ContributionsController < ApplicationController
     else
       redirect_to session.delete(:retun_to) || :back, notice: 'There was an issue recording your contribution.'
     end
-
   end
 
   def create_global
@@ -26,6 +27,7 @@ class ContributionsController < ApplicationController
     respond_to do |format|
       format.html
       format.js
+    end
   end
 
   private
@@ -38,11 +40,12 @@ class ContributionsController < ApplicationController
     @project = Project.find(params[:project_id])
   end
 
-  # def set_contribution
-  #   @contribution = current_user.contributions.find(params[:id])
-  # end
+  def set_user_contribution
+    @contribution = current_user.contributions.find(params[:id])
+  end
 
   def contribution_params
     params.require(:contribution).permit(:note, :email)
   end
+
 end

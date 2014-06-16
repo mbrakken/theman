@@ -25,7 +25,14 @@
         .event-description
           %p
             =simple_format h auto_link(@project.description).html_safe
+      .contribution-form
+        = form_for :contribution do |f|
+          = f.label :note, "Note"
+          = f.text_area :note
       .actions
+        = link_to project_contributions_path(@project), method: :post do
+          .attend
+            %span.text Contribute
         - if current_user && current_user.amplified?(@project)
           .amped
             %span.text Amped
@@ -45,10 +52,10 @@
           %p
             - @project.hosts.each do |user|
               = user.name
-      - if @project.attendees.any?
+      - if @project.contributors.any?
         .attendees
-          %h3 PARTICIPANTS
+          %h3 CONTRIBUTORS
           %p
-            - @project.attendees.each do |user|
+            - @project.contributors.each do |user|
               = user.name
               |

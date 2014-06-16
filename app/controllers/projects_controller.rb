@@ -10,7 +10,8 @@ class ProjectsController < ApplicationController
 
   def index
     if current_user
-      @ranks = Rank.joins(:project).where(user_id: current_user.id ).order('ranks.value desc')
+      @ranked_projects = Rank.joins(:project).where(user_id: current_user.id ).order('ranks.value desc')
+      @projects = current_user.created_projects
     else
       @projects = Project.all
       flash[:notice] = "Welcome to The Mutual Aid Network! You're seeing a list of all projects currently in our system. <a href='#{root_path}'>Connect one of your social media accounts</a> to see projects tailored to you.".html_safe
@@ -18,6 +19,7 @@ class ProjectsController < ApplicationController
     respond_to do |format|
       format.html
     end
+    # binding.pry
   end
 
   def new
@@ -29,11 +31,11 @@ class ProjectsController < ApplicationController
   end
 
   def create
-    binding.pry
+    # binding.pry
     @project = current_user.created_projects.new(project_params)
     if @project.save
       @project.hosts << current_user
-      @project.attendees << current_user
+      @project.contributors << current_user
       ProjectMailer.created(@project).deliver
       redirect_to @project, notice: 'Your project was successfully added.'
     else
