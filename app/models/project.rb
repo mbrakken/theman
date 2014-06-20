@@ -18,8 +18,6 @@ class Project < ActiveRecord::Base
 
   after_create :update_ranks
 
-  scope :created, -> {where(creator: @user)}
-
   delegate :email, to: :creator, prefix: true
   delegate :name, to: :organization, prefix: true, allow_nil: true
 
