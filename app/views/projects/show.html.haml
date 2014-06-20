@@ -8,7 +8,7 @@
   = link_to 'Back', projects_path
   %h1.event-page-header
     = @project.title
-  - if current_user && ( current_user.created_projects.include?(@project) || current_user.hosted_projects.include?(@project) || current_user.admin? )
+  - if current_user && ( current_user.created_projects.include?(@project) || current_user.admin? )
     .new-event-action.clearfix
       .edit
         = link_to "Edit", edit_project_path, class: 'btn btn-default btn-lg'
