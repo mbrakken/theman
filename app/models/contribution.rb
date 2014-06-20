@@ -10,9 +10,13 @@ class Contribution < ActiveRecord::Base
   delegate :update_ranks, to: :project
   after_commit :update_ranks
 
+
+
   scope :proposed, -> { where(state: 'proposed') }
+  scope :requested, -> { where(state: 'requested') }
+  scope :claimed, -> { where(state: 'claimed') }
   scope :accepted, -> { where(state: 'accepted') }
   scope :closed, -> { where(state: 'closed') }
-  scope :global, -> { where(global: !nil) }
+  scope :global, -> { where(global: true) }
 
 end

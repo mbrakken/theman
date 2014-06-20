@@ -12,3 +12,18 @@
   Offered anywhere:
   = raw @user.global_offers.map { |t| link_to t, offer_tag_path(t) }.join(', ')
 
+- if @created_projects.present?
+  #created-projects.project-list
+    %h3 Created Projects
+    %ul
+      - @created_projects.each do |p|
+        %li
+          = link_to p.title, p
+
+- if @contributed_projects.present?
+  #contributed-projects.project-list
+    %h3 Contributed Projects
+    %ul
+      - @contributed_projects.each do |p|
+        %li
+          = link_to p.title, p

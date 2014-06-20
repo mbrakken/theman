@@ -5,6 +5,7 @@
   %meta{content: "#{@project.try(:description)}", name: "twitter:description"}
 
 .row.top-section
+  = link_to 'Back', projects_path
   %h1.event-page-header
     = @project.title
   - if current_user && ( current_user.created_projects.include?(@project) || current_user.hosted_projects.include?(@project) || current_user.admin? )
@@ -25,10 +26,6 @@
         .event-description
           %p
             =simple_format h auto_link(@project.description).html_safe
-      .contribution-form
-        = form_for :contribution do |f|
-          = f.label :note, "Note"
-          = f.text_area :note
       .actions
         = link_to project_contributions_path(@project), method: :post do
           .attend
@@ -42,8 +39,31 @@
             .amp
               %span.text Amplify
               = image_tag('amped.png', title: "Amplify", width: "36px", height: "35px")
+    .contribution-list
+      - if @contributions
+        %ul
+          - @contributions.each do |c|
+            %li
+              = c.note
+              = c.user.try(:name)
+              = c.created_at
+              = link_to "Update", edit_contribution_path(c) if current_user == c.user
+
   #event-right.col-xs-12.col-md-4
     .event-details
+      - if @project.contributors.include?(current_user)
+        .contribution-suggest-form
+          %h3 Suggest contributions
+          = form_for([@project, @project.contributions.build]) do |f|
+            = f.label :note, "Describe contribution"
+            = f.text_area :note, required: true
+            = f.submit 'Save contribution'
+      .offer-contributions-form
+        %h3 Offer a contribution
+        = form_for([@project, @project.contributions.build]) do |f|
+          = f.label :note, "Describe contribution"
+          = f.text_area :note, required: true
+          = f.submit 'Save contribution'
       .event-url
         = link_to @project.url, @project.url
       - if @project.hosts.any?
