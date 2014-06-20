@@ -1,16 +1,12 @@
 class Rank < ActiveRecord::Base
-  belongs_to :event
   belongs_to :project
   belongs_to :user
 
-  has_many :amps, through: :event
   has_many :amps, through: :project
-  has_many :registrations, through: :event
   has_many :registrations, through: :project
-  has_many :hostings, through: :event
   has_many :hostings, through: :project
 
-  validates :user_id, uniqueness: { scope: :event_id }
+  validates :user_id, uniqueness: { scope: :project_id }
 
   def calculate_value
     amped_follows.count +

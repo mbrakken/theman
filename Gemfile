@@ -37,6 +37,7 @@ gem 'bootstrap-sass'
 gem 'rails_autolink'
 gem "friendly_id"
 gem 'acts-as-taggable-on'
+gem 'state_machine'
 
 
 # Don't require so Object does not get all Sintra DSL methods

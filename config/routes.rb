@@ -12,7 +12,7 @@ TheMan::Application.routes.draw do
     end
   end
   resources :payments, only: [:new, :create]
-  resources :contributions, only: [:create]
+  resources :contributions
   resources :identities, only: [:destroy, :index]
   resources :sessions, only: [:new, :create, :destroy]
   resources :organizations, only: [:new, :create, :show] do
@@ -30,7 +30,9 @@ TheMan::Application.routes.draw do
     end
     resources :registrations, only: [:new, :create, :index]
   end
-  resources :projects, only: [:new, :show, :create, :edit, :update, :index]
+  resources :projects, only: [:new, :show, :create, :edit, :update, :index] do
+    resources :contributions
+  end
 
   get "/admin" => "admin#index", as: :admin
   namespace :admin do

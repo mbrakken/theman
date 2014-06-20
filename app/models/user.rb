@@ -3,10 +3,10 @@ class User < ActiveRecord::Base
   acts_as_ordered_taggable
   acts_as_ordered_taggable_on :local_offers, :global_offers
 
-  has_many :registrations
   has_many :hostings
   has_many :amps
   has_many :ranks
+  has_many :contributions
 
   has_many :follows, foreign_key: :follower_id
   has_many :complete_follows, -> { complete }, class_name: 'Follow', foreign_key: :follower_id
@@ -15,18 +15,17 @@ class User < ActiveRecord::Base
   has_many :followings, foreign_key: :followee_id, class_name: 'Follow'
   has_many :following_users, -> { distinct }, through: :followings, source: :followee
 
-  has_many :registrations
   has_many :created_projects, class_name: 'Project', foreign_key: :creator_id
-  has_many :registered_projects, -> { distinct }, through: :registrations, source: :project
+  has_many :contributed_projects, -> { distinct }, through: :contributions, source: :project
   has_many :hosted_projects, -> { distinct }, through: :hostings, source: :project
   has_many :amped_projects, -> { distinct }, through: :amps, source: :project
 
   has_many :following_amps, through: :followed_users, source: :amps
-  has_many :following_registrations, through: :followed_users, source: :amps
+  has_many :following_contributions, through: :followed_users, source: :amps
   has_many :following_hostings, through: :followed_users, source: :amps
 
   has_many :following_amped_projects, through: :followed_users, source: :amped_projects
-  has_many :following_registered_projects, through: :followed_users, source: :registered_projects
+  has_many :following_contributed_projects, through: :followed_users, source: :contributed_projects
   has_many :following_hosted_projects, through: :followed_users, source: :hosted_projects
 
   has_many :org_administrations
@@ -53,8 +52,8 @@ class User < ActiveRecord::Base
     followed_users.pluck(:id)
   end
 
-  def registered?(project)
-    registrations.exists? project_id: project.id
+  def contributed?(project)
+    contributions.exists? project_id: project.id
   end
 
   def amplified?(project)

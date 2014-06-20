@@ -1,0 +1,15 @@
+= form_for contribution, :html => {:class => 'form-horizontal'} do |f|
+  - if contribution.errors.any?
+    .alert.alert-danger
+      #{pluralize(contribution.errors.count, "error")} prohibited this contribution from being saved:
+      %ul
+        - contribution.errors.full_messages.each do |msg|
+          %li= msg
+  .form-group
+    = f.label :note, class: 'col-sm-3 control-label'
+    .col-sm-9
+      = f.text_area :note, rows: "3", class: 'form-control'
+      %span.help-block URLs which include the protocol (eg. http://) and email address will be converted into links.
+  .form-group
+    .col-sm-3.col-sm-offset-9
+      = f.submit 'Save Contribution', class: 'btn btn-primary btn-lg btn-block'

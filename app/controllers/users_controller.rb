@@ -4,6 +4,8 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @created_projects = @user.created_projects
+    @contributed_projects = @user.contributed_projects
   end
 
   def twitter_email
