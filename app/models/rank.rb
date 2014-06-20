@@ -3,14 +3,14 @@ class Rank < ActiveRecord::Base
   belongs_to :user
 
   has_many :amps, through: :project
-  has_many :registrations, through: :project
+  has_many :contributions, through: :project
   has_many :hostings, through: :project
 
   validates :user_id, uniqueness: { scope: :project_id }
 
   def calculate_value
     amped_follows.count +
-    registered_follows.count*2 +
+    contributed_follows.count*2 +
     hosting_follows.count*4
   end
 
@@ -20,15 +20,15 @@ class Rank < ActiveRecord::Base
   end
 
   def associated_follows
-    [amped_follows, registered_follows, hosting_follows].flatten.map(&:user).uniq
+    [amped_follows, contributed_follows, hosting_follows].flatten.map(&:user).uniq
   end
 
   def amped_follows
     @amped_follows ||= amps.where(user_id: followed_user_ids)
   end
 
-  def registered_follows
-    @registered_follows ||= registrations.where(user_id: followed_user_ids)
+  def contributed_follows
+    @contributed_follows ||= contributions.where(user_id: followed_user_ids)
   end
 
   def hosting_follows

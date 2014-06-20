@@ -1,6 +1,6 @@
 class AmpsController < ApplicationController
   before_filter :authorize_user!, only: [:create]
-  before_filter :set_registration, only: [:destroy]
+  before_filter :set_contribution, only: [:destroy]
   before_filter :set_event, only: [:index]
 
   def create
