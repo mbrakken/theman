@@ -25,10 +25,18 @@ class ContributionsController < ApplicationController
 
   def create_global
     @contribution = Contribution.create(contribution_params)
-    redirect_to support_content_index_path, notice: 'Thank you for contributing. Someone will be in touch with you shortly.'
+    redirect_to projects_path, notice: 'Thank you for contributing. Someone will be in touch with you shortly.'
   end
 
   def index
+    binding.pry
+    set_project if params[:project_id]
+    @contributions = @project !nil ? @project.contributions : Contributions.all
+    if %w( proposed requested claimed accepted).include?(params[:scope])
+      @contributions = @contributions.send(params[:scope])
+    else
+      @contributions = @contributions.requested
+    end
     respond_to do |format|
       format.html
       format.js

@@ -1,1 +1,13 @@
-index.html.haml
+.row
+  .col-sm-6
+    %h1 Events
+  .col-sm-6
+    %ul.nav.nav-pills.pull-right
+      %li{class: ("active" if params[:scope] == nil)}
+        = link_to 'Requested', admin_events_path
+      %li{class: ("active" if params[:scope] == "proposed")}
+        = link_to 'Proposed', admin_events_path(scope: "proposed")
+      %li{class: ("active" if params[:scope] == "claimed")}
+        = link_to 'Claimed', admin_events_path(scope: "claimed")
+      %li{class: ("active" if params[:scope] == "accepted")}
+        = link_to 'Acceptd', admin_events_path(scope: "accepted")
