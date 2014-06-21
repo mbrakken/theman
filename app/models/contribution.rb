@@ -29,8 +29,8 @@ class Contribution < ActiveRecord::Base
     end
 
     event 'refuse' do
-      transition any => 'proposed'
-      binding.pry
+      transition any => :proposed
+      # binding.pry
     end
 
   end
