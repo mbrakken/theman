@@ -1,6 +1,6 @@
 class ContributionsController < ApplicationController
   before_filter :authorize_user!, only: [:new, :create, :edit, :update]
-  before_filter :set_contribution, only: [:show]
+  before_filter :set_contribution, only: [:show, :claim]
   before_filter :set_user_contribution, only: [:edit, :update, :destroy, :retract]
   before_filter :set_project, only: [:create]
 
@@ -16,6 +16,12 @@ class ContributionsController < ApplicationController
       redirect_to project_path(@project), notice: 'need a better flow for handling non-authenticated contributors' and return
     end
     if @contribution.save
+      binding.pry
+      if @contribution.user == @project.creator
+        @contribution.request
+      else
+        @contribution.propose
+      end
       flash[:notice] = "Your contribution has been recorded"
       redirect_to project_path(@project)
     else
@@ -29,9 +35,8 @@ class ContributionsController < ApplicationController
   end
 
   def index
-    binding.pry
     set_project if params[:project_id]
-    @contributions = @project !nil ? @project.contributions : Contributions.all
+    @contributions = @project.present? ? @project.contributions : Contribution.all
     if %w( proposed requested claimed accepted).include?(params[:scope])
       @contributions = @contributions.send(params[:scope])
     else
@@ -41,6 +46,11 @@ class ContributionsController < ApplicationController
       format.html
       format.js
     end
+  end
+
+  def claim
+    @contribution.claim ? flash[:notice] = "You have taken responsibility for this contribution" : flash[:error] = "Invalid transition"
+    redirect_to project_contributions_path(@contribution.project)
   end
 
   private

@@ -40,6 +40,6 @@ class Contribution < ActiveRecord::Base
   scope :claimed, -> { where(state: 'claimed') }
   scope :accepted, -> { where(state: 'accepted') }
   scope :closed, -> { where(state: 'closed') }
-  scope :global, -> { where(global: true) }
+  scope :global, -> { where(scope: 'global') }
 
 end
