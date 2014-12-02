@@ -23,6 +23,6 @@ module TheMan
     # config.i18n.default_locale = :de
     config.i18n.enforce_available_locales = true
 
-    ActionMailer::Base.default from: 'madihelp@gmail.com'
+    ActionMailer::Base.default from: 'marc.brakken@gmail.com'
   end
 end
