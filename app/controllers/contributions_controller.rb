@@ -16,7 +16,7 @@ class ContributionsController < ApplicationController
       redirect_to project_path(@project), notice: 'need a better flow for handling non-authenticated contributors' and return
     end
     if @contribution.save
-      binding.pry
+      # binding.pry
       if @contribution.user == @project.creator
         @contribution.request
       else
