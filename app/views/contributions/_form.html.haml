@@ -1,10 +1,13 @@
-= form_for contribution, :html => {:class => 'form-horizontal'} do |f|
-  - if contribution.errors.any?
+= form_for [@project, @project.contributions.build], :html => {:class => 'form-horizontal'} do |f|
+  - if @project.contributions.last.errors.any?
     .alert.alert-danger
-      #{pluralize(contribution.errors.count, "error")} prohibited this contribution from being saved:
+      #{pluralize(@project.contributions.last.errors.count, "error")} prohibited this contribtion from being saved:
       %ul
-        - contribution.errors.full_messages.each do |msg|
+        - @project.contributions.last.errors.full_messages.each do |msg|
           %li= msg
+  - if current_user == @project.creator
+    .form-group
+      Stuff
   .form-group
     = f.label :note, class: 'col-sm-3 control-label'
     .col-sm-9

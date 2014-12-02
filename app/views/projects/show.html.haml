@@ -51,19 +51,13 @@
 
   #event-right.col-xs-12.col-md-4
     .event-details
-      - if @project.contributors.include?(current_user)
-        .contribution-suggest-form
-          %h3 Suggest contributions
-          = form_for([@project, @project.contributions.build]) do |f|
-            = f.label :note, "Describe contribution"
-            = f.text_area :note, required: true
-            = f.submit 'Save contribution'
-      .offer-contributions-form
-        %h3 Offer a contribution
-        = form_for([@project, @project.contributions.build]) do |f|
-          = f.label :note, "Describe contribution"
-          = f.text_area :note, required: true
-          = f.submit 'Save contribution'
+      .propose-contributions-form
+        %h3 Propose a contribution
+        / = form_for([@project, @project.contributions.build]) do |f|
+        /   = f.label :note, "Describe contribution"
+        /   = f.text_area :note, required: true
+        /   = f.submit 'Save contribution'
+        = render 'contributions/form'
       .event-url
         = link_to @project.url, @project.url
       - if @project.hosts.any?

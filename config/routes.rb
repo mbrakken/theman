@@ -12,7 +12,11 @@ TheMan::Application.routes.draw do
     end
   end
   resources :payments, only: [:new, :create]
-  resources :contributions
+  resources :contributions do
+    member do
+      get 'claim'
+    end
+  end
   resources :identities, only: [:destroy, :index]
   resources :sessions, only: [:new, :create, :destroy]
   resources :organizations, only: [:new, :create, :show] do
